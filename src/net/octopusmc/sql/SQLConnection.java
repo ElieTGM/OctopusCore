@@ -82,7 +82,10 @@ public class SQLConnection {
 		try {
 			c = MySQL.openConnection();
 			
+			//(servername, status, players)
+			
 			executeUpdate("CREATE TABLE IF NOT EXISTS `Account` (playername VARCHAR(255) NOT NULL, rank VARCHAR(255) NOT NULL, fishies VARCHAR(255) NOT NULL, firstjoined VARCHAR(255) NOT NULL, lastseen VARCHAR(255) NOT NULL, timeonline VARCHAR(255) NOT NULL, ip VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, language VARCHAR(255) NOT NULL);");
+			executeUpdate("CREATE TABLE IF NOT EXISTS `Servers` (servername VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, players VARCHAR(255) NOT NULL);");
 			
 			new BukkitRunnable() {
 				public void run() {

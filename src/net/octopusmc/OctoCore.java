@@ -36,12 +36,16 @@ import net.octopusmc.chest.SkullCreator;
 import net.octopusmc.commands.CommandManager;
 import net.octopusmc.commands.OctopusPluginCommandManager;
 import net.octopusmc.events.ChatListener;
+import net.octopusmc.events.PlayerJoin;
 import net.octopusmc.language.LanguageManager;
 import net.octopusmc.player.OctopusPlayer;
 import net.octopusmc.rank.RankManager;
 import net.octopusmc.sql.SQLConnection;
+
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.nametag.plugin.NametagEdit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,6 +127,7 @@ public class OctoCore extends JavaPlugin {
     public static CommandManager getCommandManager() {return commandManager; }
     private static List<OctopusPluginCommandManager> cmdManagers = new ArrayList<OctopusPluginCommandManager>();
 
+	public static NametagEdit NAMETAG_API = null;
     /**
      * The main onEnable() method of the OctoCore java plugin. Please do not touch this as changes to the Core are only
      * made when there is a global vote on it. This shouldn't be changed, as only ElieTGM and JosephGP have the rights
@@ -161,11 +166,17 @@ public class OctoCore extends JavaPlugin {
          */
         commandManager = new CommandManager();
 
+		NAMETAG_API = new NametagEdit();
+		
+		NAMETAG_API.onEnable();
+		
         /**
          * Let's register our CUSTOM PlayerChatEvent class. It SHOULD be used in every event you invoke or need while using the chat event.
          * The documentation is within the PlayerChatEvent class.
          */
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        
+        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     }
 
     /**
@@ -185,6 +196,8 @@ public class OctoCore extends JavaPlugin {
         for(OctopusPluginCommandManager manager : cmdManagers) {
             manager.onDisable();
         }
+        
+        NAMETAG_API.onDisable();
     }
 
     /**

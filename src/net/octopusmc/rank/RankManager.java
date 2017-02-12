@@ -32,7 +32,9 @@
 package net.octopusmc.rank;
 
 import net.octopusmc.OctoCore;
+import net.octopusmc.events.PlayerJoin;
 import net.octopusmc.player.OctopusPlayer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -118,7 +120,7 @@ public class RankManager implements IRankManager {
 
         for(Player all : Bukkit.getOnlinePlayers()) {
 
-            //TODO
+            PlayerJoin.updateTab(all, "");
 
         }
     }
